@@ -60,7 +60,7 @@ public class MandelWindow extends JFrame {
 		panelRender.add(progressBar, BorderLayout.SOUTH);
 		
 		textField = new JTextField();
-		textField.setText("4096");
+		textField.setText("16000");
 		panelRender.add(textField, BorderLayout.WEST);
 		textField.setColumns(10);
 		
