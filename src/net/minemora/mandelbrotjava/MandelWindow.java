@@ -1,7 +1,6 @@
 package net.minemora.mandelbrotjava;
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -25,13 +24,13 @@ public class MandelWindow extends JFrame {
 	private JPanel panelRender;
 	private JButton btnRender;
 	private JProgressBar progressBar;
-	private JPanel panelMandel;
 	private JTextField textField;
+	private MandelPanel panel;
 
 	public MandelWindow(String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 883, 475);
+		setBounds(100, 100, 497, 326);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -49,7 +48,7 @@ public class MandelWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MandelbrotJava.renderMandelPNG(Integer.parseInt(textField.getText()), 200);
+				MandelbrotJava.renderMandelPNG(Integer.parseInt(textField.getText()), 250);
 			}
 			
 		});
@@ -64,12 +63,10 @@ public class MandelWindow extends JFrame {
 		panelRender.add(textField, BorderLayout.WEST);
 		textField.setColumns(10);
 		
-		panelMandel = new JPanel();
-		contentPane.add(panelMandel, BorderLayout.CENTER);
 		
-		Canvas canvas = new MandelCanvas();
-		canvas.setSize(2 * MandelbrotJava.size, MandelbrotJava.size);
-		canvas.addMouseListener(new MouseAdapter() {
+		panel = new MandelPanel();
+		panel.setSize(2 * MandelbrotJava.size, MandelbrotJava.size);
+		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				TimerTask task = new TimerTask() {
@@ -83,10 +80,9 @@ public class MandelWindow extends JFrame {
 						MandelbrotJava.lastRe = c_re;
 						MandelbrotJava.lastIm = c_im;			
 						MandelbrotJava.renderMandel(MandelbrotJava.mandelRight, c_re, c_im);
-						canvas.repaint();
 			        }
 			    };
-			    MandelbrotJava.timer.schedule(task, 80, 80);
+			    MandelbrotJava.timer.schedule(task, 5, 80);
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -94,16 +90,13 @@ public class MandelWindow extends JFrame {
 				MandelbrotJava.timer = new Timer();
 			}
 		});
-		panelMandel.add(canvas);
+		contentPane.add(panel);
 		
 		
-		this.pack();
+		//this.pack();
 		this.setMinimumSize(this.getSize());
 		this.setResizable(false);
 		this.setVisible(true);
-		
-		
-		
 	}
 
 	public JPanel getPanelRender() {
@@ -115,10 +108,10 @@ public class MandelWindow extends JFrame {
 	public JProgressBar getProgressBar() {
 		return progressBar;
 	}
-	public JPanel getPanelMandel() {
-		return panelMandel;
-	}
 	public JTextField getTextField() {
 		return textField;
+	}
+	public MandelPanel getPanel() {
+		return panel;
 	}
 }
