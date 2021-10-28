@@ -30,7 +30,7 @@ public class MandelWindow extends JFrame {
 	public MandelWindow(String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 497, 326);
+		setBounds(100, 100, 20+MandelbrotJava.size*2, MandelbrotJava.size+100);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -82,7 +82,7 @@ public class MandelWindow extends JFrame {
 						MandelbrotJava.renderMandel(MandelbrotJava.mandelRight, c_re, c_im);
 			        }
 			    };
-			    MandelbrotJava.timer.schedule(task, 5, 80);
+			    MandelbrotJava.timer.schedule(task, 5, 40);
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {

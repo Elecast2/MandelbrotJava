@@ -17,7 +17,7 @@ public class MandelbrotJava {
 	public static Timer timer = new Timer();
 	public static MandelWindow frame;
 
-	public static int size = 240;
+	public static int size = 500;
 	public static int unit = size / 4;
 	public static int iterations = 65;
 
